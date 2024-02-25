@@ -1,9 +1,7 @@
-import path from "path";
-import { GameDig } from "gamedig";
-
-import { Client, IntentsBitField, Partials, ActivityType } from "discord.js";
-import WOK from "wokcommands";
-import dotenv from "dotenv";
+const { Client, IntentsBitField, Partials } = require("discord.js");
+const WOK = require("wokcommands");
+const dotenv = require("dotenv");
+const path = require("path");
 
 dotenv.config({
 	path: "./.env",
@@ -11,25 +9,6 @@ dotenv.config({
 
 const { DefaultCommands } = WOK;
 const { TOKEN } = process.env;
-const serverData = [
-	{
-		address: "104.206.80.154",
-		port: 14010,
-		serverType: "#1",
-	},
-	{
-		address: "104.206.80.154",
-		port: 14210,
-		serverType: "#2",
-	},
-	{
-		address: "104.206.80.154",
-		port: 14310,
-		serverType: "DM",
-	},
-];
-
-let serverCount = 0;
 
 const client = new Client({
 	intents: [
@@ -45,22 +24,7 @@ const client = new Client({
 client.on("ready", async () => {
 	console.log(`${client.user.username} is running 🤖`);
 
-	setInterval(async () => {
-		try {
-			const { address, port, serverType } = serverData[serverCount];
-
-			const { numplayers, maxplayers } = await fetchServerData(address, port);
-
-			serverCount < serverData.length - 1 ? serverCount++ : (serverCount = 0);
-
-			client.user.setActivity(`NB ${serverType}: ${numplayers}/${maxplayers}`, {
-				type: ActivityType.Watching,
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	}, 1000 * 15); // 15 secs
-
+	// client.application.commands.set([]);
 	new WOK({
 		client,
 		commandsDir: path.join(path.resolve(), "./commands"),
@@ -87,11 +51,3 @@ client.on("ready", async () => {
 });
 
 client.login(TOKEN);
-
-async function fetchServerData(address, port) {
-	return await GameDig.query({
-		type: "theisle",
-		address,
-		port,
-	}).catch((e) => console.log(e));
-}
