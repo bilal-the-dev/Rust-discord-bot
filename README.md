@@ -5,7 +5,7 @@ A discord bot that uses [BattleMetrics API](https://www.battlemetrics.com/) to f
 
 ## Video tutorial
 
-Wanna see how bot works actually? Watch the video on my [Twitter]() or [Linkedin]() or [Facebook]().
+Wanna see how bot works actually? Watch the video on my [Twitter](https://twitter.com/bilal_the_dev/status/1762801843560681854) or [Linkedin](https://www.linkedin.com/feed/update/urn:li:activity:7168566496837804032/) or [Facebook](https://www.facebook.com/61556182875591/videos/792055056277837/).
 
 ## Installation
 
